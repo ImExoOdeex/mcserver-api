@@ -43,7 +43,7 @@ var express = require('express');
 var app = express();
 app.use(express.json());
 app.get("/", function (req, res) {
-    res.status(200).send({ lol: "LOL" });
+    res.status(200).send("<body style='background-color: black; color: white'><p style='font-weight: 500; font-family: sans-serif'>Nothing's there ;D. Enter server address after <code>/</code> to get server info. If it's bedrock server, enter server address after <code>/bedrock/</code>.</p></body>");
 });
 app.get("/:name", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var name, _a, _b;
