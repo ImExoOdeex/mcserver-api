@@ -51,6 +51,10 @@ const getBedrockServerInfo = async (address: string): Promise<BedrockServer> => 
         },
         edition: s?.edition || null,
         version: s?.version?.name || null,
+        players: {
+            online: s?.players?.online || 0,
+            max: s?.players?.max || 0,
+        },
         protocol: s?.version?.protocol || null,
         guid: s?.serverGUID.toString() || null,
         id: s?.serverID || null,
@@ -62,10 +66,6 @@ const getBedrockServerInfo = async (address: string): Promise<BedrockServer> => 
             raw: s?.motd?.raw || null,
             clean: s?.motd?.clean || null,
             html: s?.motd?.html || null,
-        },
-        players: {
-            online: s?.players?.online || 0,
-            max: s?.players?.max || 0,
         },
     };
 };

@@ -6,7 +6,10 @@ type MinecraftServer = {
     host: string;
     ip: string | null;
     port: number | null;
-    version: string | null;
+    version: {
+        array: Array<string> | null,
+        string: string | null | undefined
+    } | null;
     protocol: number | null;
     software: string | null;
     plugins: string[];
@@ -45,22 +48,26 @@ const getServerInfo = async (address: string): Promise<MinecraftServer> => {
     res[1].status === "fulfilled" && (q = res[1].value);
     res[2].status === "fulfilled" && (l = res[2].value);
 
+    function findNumberIndexInString(str: string) {
+        var num = /\d/;
+        var nums: any = str.match(num);
+        return str.indexOf(nums);
+    }
+
+    const numberInString: number = findNumberIndexInString(s?.version?.name?.toString() ?? "")
+    let versionArr: any = s?.version?.name?.slice(numberInString).split(", ")
+    // q?.version.split(",") ||
+    //  || l?.version?.name?.split(",")
+
     return {
         online: !!s || !!q || !!l,
         host: s?.srvRecord?.host || l?.srvRecord?.host || host,
         ip: q?.hostIP || null,
         port: q?.hostPort || s?.srvRecord?.port || l?.srvRecord?.port || port || null,
-        version: q?.version || s?.version?.name || l?.version?.name || null,
-        protocol: s?.version?.protocol || l?.version?.protocol || null,
-        software: q?.software || s?.version?.name || null,
-        plugins: q?.plugins || [],
-        map: q?.map || null,
-        motd: {
-            raw: q?.motd?.raw || s?.motd?.raw || l?.motd?.raw || null,
-            clean: q?.motd?.clean || s?.motd?.clean || l?.motd?.clean || null,
-            html: q?.motd?.html || s?.motd?.html || l?.motd?.html || null,
+        version: {
+            array: versionArr,
+            string: q?.version || s?.version?.name || l?.version?.name
         },
-        favicon: s?.favicon || null,
         players: {
             online: q?.players?.online || s?.players?.online || l?.players?.online || 0,
             max: q?.players?.max || s?.players?.max || l?.players?.max || 0,
@@ -71,6 +78,16 @@ const getServerInfo = async (address: string): Promise<MinecraftServer> => {
                 }) ||
                 [],
         },
+        protocol: s?.version?.protocol || l?.version?.protocol || null,
+        software: q?.software || s?.version?.name || null,
+        plugins: q?.plugins || [],
+        map: q?.map || null,
+        motd: {
+            raw: q?.motd?.raw || s?.motd?.raw || l?.motd?.raw || null,
+            clean: q?.motd?.clean || s?.motd?.clean || l?.motd?.clean || null,
+            html: q?.motd?.html || s?.motd?.html || l?.motd?.html || null,
+        },
+        favicon: s?.favicon || null,
         ping: s?.roundTripLatency || null,
         debug: {
             status: !!s,
