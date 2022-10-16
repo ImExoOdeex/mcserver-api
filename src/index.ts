@@ -22,4 +22,4 @@ app.get("/bedrock/:name", async (req: any, res: any) => {
     res.status(200).send(await getBedrockServerInfo(name))
 })
 
-app.listen(PORT, () => console.log("listening on: " + PORT))
+app.listen(PORT, () => console.log("listening on " + PORT + " Port"))

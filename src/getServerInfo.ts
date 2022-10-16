@@ -1,5 +1,5 @@
 import { status, queryFull, statusLegacy } from "minecraft-server-util";
-import { splitAddress } from "./splitAddress";
+import splitAddress from "./splitAddress";
 
 type MinecraftServer = {
     online: boolean;
