@@ -49,8 +49,8 @@ const getServerInfo = async (address: string): Promise<MinecraftServer> => {
     res[2].status === "fulfilled" && (l = res[2].value);
 
     function findNumberIndexInString(str: string) {
-        var num = /\d/;
-        var nums: any = str.match(num);
+        let num = /\d/;
+        let nums: any = str.match(num);
         return str.indexOf(nums);
     }
 
