@@ -12,6 +12,7 @@
   "author": "imexoodeex",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "install": "^0.13.0",
     "mcproto": "^0.9.0",
